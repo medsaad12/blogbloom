@@ -8,9 +8,10 @@
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-        @vite('resources/js/app.js')
+        <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">
+        @vite(['resources/js/app.js','resources/css/app.css'])
     </head>
-    <body class="antialiased">
+    <body>
        <div id="app">
 
        </div>
