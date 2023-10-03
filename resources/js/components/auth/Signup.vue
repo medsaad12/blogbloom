@@ -15,7 +15,7 @@
                 <input class="blogbloom-input" type="password" placeholder="Password">
             </div>
             <button class="blogbloom-button">Submit</button>
-            <p class="form-p">If you already have an account, <router-link to="/login"><span class="router-link">login here</span></router-link>.</p>
+            <p class="form-p">If you already have an account, <router-link to="/login"><span class="router-link">login </span></router-link>here.</p>
         </form>
     </div>
 </template>

@@ -72,7 +72,7 @@ export default {
     height: 50px;
     outline: none;
     border: 1px solid #FA4853;
-    color: #FA4853;
+    color:#fa5c66;
     padding-left: 20px;
     border-radius: 15px;
     font-family: 'poppins';
