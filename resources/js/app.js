@@ -1,29 +1,41 @@
 import { createApp } from "vue";
 import App from "./App.vue"
 import { createRouter,createWebHistory } from "vue-router";
-import Dashboard from "./components/Dashboard.vue"
-import Signup from "./components/auth/Signup.vue"
-import Login from "./components/auth/Login.vue"
 
-const routes = [
-    {
-        path : "/",
-        component : Dashboard
-    },
-    {
-        path : "/signup",
-        component : Signup
-    },
-    {
-        path : "/login",
-        component : Login
-    },
-    
-];
 
 const router = createRouter({
     history : createWebHistory(),
-    routes
+    routes : [
+        {
+            path : "/",
+            name : "home",
+            component : ()=> import( "./components/Home.vue")
+        },
+        {
+            path : "/signup",
+            name : "signup",
+            component : ()=> import("./components/auth/Signup.vue")
+        },
+        {
+            path : "/login",
+            name : "login",
+            component : ()=> import("./components/auth/Login.vue")
+        },
+        
+    ]
+});
+
+
+router.beforeEach((to)=>{
+    if (to.name == "home") {
+        const authToken = localStorage.getItem('authToken');
+        if(!authToken ){
+            return "/login" 
+        }
+    }
 })
+
+
+
 
 createApp(App).use(router).mount("#app")

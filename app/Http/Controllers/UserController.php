@@ -60,7 +60,7 @@ class UserController extends Controller
     {
         try {
             $validatedData = Validator::make($request->all(),[
-                "email" => "required||email",
+                "email" => "required",
                 "password" => "required"
             ]);
 

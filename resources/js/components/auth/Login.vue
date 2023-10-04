@@ -1,25 +1,69 @@
 <template>
     <div class="auth-login">
         <h1 class="title">Login</h1>
-        <form id="login" class="blog-form" action="">
+        <form @submit.prevent="login" id="login" class="blog-form" action="">
             <div class="form-group">
                 <label for="">Email</label>
-                <input class="blogbloom-input" type="email" placeholder="Email">
+                <input v-model="email" class="blogbloom-input" type="email" placeholder="Email">
             </div>
             <div class="form-group">
                 <label for="">Password</label>
-                <input class="blogbloom-input" type="password" placeholder="Password">
+                <input v-model="password" class="blogbloom-input" type="password" placeholder="Password">
             </div>
-            <button class="blogbloom-button">Submit</button>
+            <img v-if="loading" src="../assets/loading.gif" class="loading">
+            
+            <button v-if="!loading" class="blogbloom-button">Submit</button>
+            <span v-if="isError" class="error">{{ error }}</span>
             <p class="form-p">If you don't have an account, <router-link to="/signup"><span class="router-link">signup</span></router-link> here.</p>
-
         </form>
     </div>
 </template>
 
 <script>
+import { ref } from 'vue';
+import axios from "axios"
+import { useRouter } from 'vue-router';
+
 export default {
-    name : "Login"
+    name : "Login",
+    setup(){
+        const email = ref("");
+        const password = ref("")
+        const loading = ref(false)
+        const error = ref("")
+        const isError = ref(false)
+        const router = useRouter();
+
+        const login = ()=>{
+            loading.value = true
+            axios.get('/sanctum/csrf-cookie')
+            .then(() => {
+                axios.post('http://127.0.0.1:8000/api/login', { email: email.value, password: password.value })
+                .then(response => {
+                        loading.value = false
+                        error.value = ""
+                        isError.value = false
+                        email.value = ""
+                        password.value = ""
+                        console.log("go home")
+                        localStorage.setItem('authToken',response.data.token)
+                        router.push("/")
+                })
+                .catch(err => {
+                    loading.value = false
+                    isError.value = true 
+                    error.value = "The email or the password is incorrect try again"
+                });
+            })
+             .catch(errr => {
+                    loading.value = false
+                    isError.value = true
+                    error.value = 'Error in the server side '
+            });
+        }
+
+        return {email,password,login,loading,error,isError}
+    }
 }
 </script>
 
@@ -36,67 +80,5 @@ export default {
 #login{
     height: 400px;
     width: 400px;
-}
-.title{
-    font-family: 'poppins';
-    color: #FA4853;
-    height: auto;
-    width: auto;
-
-}
-.blog-form{
-    
-    border: 1px solid #FA4853;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'poppins';
-    color: #FA4853;
-    border-radius: 20px;
-    box-shadow: #FA4853 2px 8px 100px 0px;
-
-
-}
-.blog-form label{
-    margin-bottom: 10px;
-    margin-left: 10px;
-}
-.form-group{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 30px;
-}
-.blogbloom-input{
-    width: 250px;
-    height: 50px;
-    outline: none;
-    border: 1px solid #FA4853;
-    color:#fa5c66;
-    padding-left: 20px;
-    border-radius: 15px;
-    font-family: 'poppins';
-    font-size: 15px;
-    background-color: #16171A;
-}
-.blogbloom-button{
-    width: 100px;
-    height: 50px;
-    border-radius: 15px;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-    font-family: 'poppins';
-    color: white;
-    background-color:#FA4853;
-    margin-bottom: 10px;
-}
-.blogbloom-button:hover{
-    background-color:#fa4854d2;
-}
-.form-p{
-    color: white;
-    font-size: 12px;
-    margin-bottom: 0px;
 }
 </style>

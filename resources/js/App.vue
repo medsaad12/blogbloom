@@ -1,5 +1,4 @@
 <template>
-    <!-- <Sidebar></Sidebar> -->
     <main class="blogbloom-main">
         <router-view></router-view> 
     </main>
