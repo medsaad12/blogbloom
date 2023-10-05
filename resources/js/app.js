@@ -33,6 +33,12 @@ router.beforeEach((to)=>{
             return "/login" 
         }
     }
+    if (to.name == "signup" || to.name == "login") {
+        const authToken = localStorage.getItem('authToken');
+        if(authToken){
+            return "/" 
+        }
+    }
 })
 
 
