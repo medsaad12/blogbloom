@@ -23,7 +23,7 @@
 import { ref } from 'vue';
 import axios from "axios"
 import { useRouter } from 'vue-router';
-
+import { userStore } from '../../stores/user';
 export default {
     name : "Login",
     setup(){
@@ -33,6 +33,7 @@ export default {
         const error = ref("")
         const isError = ref(false)
         const router = useRouter();
+        const user = userStore();
 
         const login = ()=>{
             loading.value = true
@@ -40,13 +41,18 @@ export default {
             .then(() => {
                 axios.post('http://127.0.0.1:8000/api/login', { email: email.value, password: password.value })
                 .then(response => {
+                        // error handling
                         loading.value = false
                         error.value = ""
                         isError.value = false
                         email.value = ""
                         password.value = ""
-                        console.log("go home")
+                        // set localstorage
                         localStorage.setItem('authToken',response.data.token)
+                        //set user
+                        let data = response.data.user
+                        user.setUser(data.id, data.name, data.email)
+                        //redirect
                         router.push("/")
                 })
                 .catch(err => {

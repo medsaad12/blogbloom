@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue"
 import { createRouter,createWebHistory } from "vue-router";
-
+import { createPinia } from "pinia";
 
 const router = createRouter({
     history : createWebHistory(),
@@ -27,12 +27,6 @@ const router = createRouter({
 
 
 router.beforeEach((to)=>{
-    if (to.name == "home") {
-        const authToken = localStorage.getItem('authToken');
-        if(!authToken ){
-            return "/login" 
-        }
-    }
     if (to.name == "signup" || to.name == "login") {
         const authToken = localStorage.getItem('authToken');
         if(authToken){
@@ -44,4 +38,4 @@ router.beforeEach((to)=>{
 
 
 
-createApp(App).use(router).mount("#app")
+createApp(App).use(router).use(createPinia()).mount("#app")

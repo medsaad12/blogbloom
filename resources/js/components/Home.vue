@@ -1,25 +1,20 @@
 <template>
-    <div>
-        <p>Home Page</p>
-    </div>
+    <h1 class="title">Hello</h1>
 </template>
 
-<script>
-import { onMounted } from 'vue';
+<script setup>
+import { userStore } from '../stores/user';
 
-    
-export default {
-    name : "Home",
-    setup(){
-        onMounted(()=>{
-            console.log("mounted")
-        })
-    }
-}
+const user = userStore();
+        
+
 </script>
 
 <style>
 p{
     color: red;
+}
+h1{
+    text-align: center;
 }
 </style>
