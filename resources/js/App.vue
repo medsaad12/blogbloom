@@ -20,11 +20,9 @@ onBeforeMount(()=>{
 
 <style>
 .blogbloom-main{
-    margin: 0;
-    padding: 0;
-    background-color: #16171A;
-    height: 100vh;
-    width: 82%;
+    width: 100%;
+    order: 1;
+    margin-left: 18%;
 }
 .router-link{
     font-style: none;

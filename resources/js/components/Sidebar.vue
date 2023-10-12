@@ -48,6 +48,8 @@ const logout = ()=>{
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: fixed;
+    
 }
 .sidebar nav {
     width: 100%;

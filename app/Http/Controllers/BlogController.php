@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,7 +14,12 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::all();
+        $allblogs = Blog::orderBy("updated_at",'desc')->get();
+        $blogs = array();
+        foreach($allblogs as $blog){
+            $user = User::find($blog->user_id);
+            array_push($blogs,["data"=>$blog,"user"=>$user]);
+        }
         return response()->json([
             "blogs" => $blogs
         ],200);
