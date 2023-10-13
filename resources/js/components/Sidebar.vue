@@ -3,6 +3,7 @@
         <h2 class="title">BlogBloom</h2>
         <nav>
         <router-link to="/">Home</router-link>
+        <router-link v-if="user.isLoggedIn" to="/newblog">New blog</router-link>
         <router-link v-if="!user.isLoggedIn" to="/login">Login</router-link>
         <router-link v-if="!user.isLoggedIn" to="/signup">Signup</router-link>
         </nav>

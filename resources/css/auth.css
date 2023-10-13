@@ -29,7 +29,7 @@
     margin-bottom: 30px;
 }
 .blogbloom-input{
-    width: 250px;
+    width: 280px;
     height: 50px;
     outline: none;
     border: 1px solid #FA4853;
@@ -40,8 +40,21 @@
     font-size: 15px;
     background-color: #16171A;
 }
+.blogbloom-input-body{
+    width: 260px;
+    height: 90px;
+    border: 1px solid #FA4853;
+    color:#fa5c66;
+    outline: none;
+    background-color: #16171A;
+    border-radius: 15px;
+    padding: 20px;
+    font-family: 'poppins';
+    font-size: 15px;
+    resize: none;
+}
 .blogbloom-button{
-    width: 100px;
+    width: 110px;
     height: 50px;
     border-radius: 15px;
     border: none;
@@ -67,4 +80,8 @@
 .error{
     font-size: 11px;
     color: red;
+}
+.message{
+    font-size: 11px;
+    color: rgb(0, 175, 0);
 }
