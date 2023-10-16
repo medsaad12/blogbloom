@@ -22,9 +22,9 @@ const router = createRouter({
             component : ()=> import("./components/auth/Login.vue")
         },
         {
-            path : "/newblog",
-            name : "newblog",
-            component : ()=> import("./components/blog/NewBlog.vue")
+            path : "/profile",
+            name : "profile",
+            component : ()=> import("./components/Profile.vue")
         },
         
     ]
