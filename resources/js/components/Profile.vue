@@ -18,11 +18,14 @@
     <img v-if="loading" src="../components//assets/loading.gif" id="loading">
     <span id="deletedMessage" v-if="deletedMessage">{{ deletedMessage }}</span>
     <div v-if="status == 'blogs' && loading == false" class="blogs">
+        
         <div  class="blog" v-for="blog in state.blogs">
             <div class="blog-title">
                 {{ blog.title }} 
                 <div class="icons">
-                    <img src="../components/assets/edit.png" id="edit-icon">
+                    <router-link :to="'edit/' + blog.id" >
+                        <img src="../components/assets/edit.png" id="edit-icon" />
+                    </router-link>
                     <img @click="deleteBlog(blog.id)" src="../components/assets/delete.png" id="delete-icon">
                 </div>
             </div>
@@ -41,7 +44,7 @@
     import { reactive } from 'vue'
     import { useRouter } from 'vue-router';
 
-
+     
     const user = userStore();
     const status = ref("info");
     const state = reactive({blogs : []})
@@ -61,6 +64,9 @@
                 loading.value = false
                 state.blogs = reactive(response.data.blogs)
             })
+        }
+        if (statuss == 'info') {
+            loading.value = false
         }
         status.value = statuss
         deletedMessage.value = ""

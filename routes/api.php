@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         $user = User::find($id);
         return response()->json(['blogs' => $user->blogs ] , 200) ;
     });
+});
+
+Route::get('getBlog/{id}', function($id){
+    $blog = Blog::find($id);
+    return response()->json(['blog' => $blog] , 200) ;
 });
 
 Route::get('blogs', [BlogController::class, 'index']);
