@@ -5,6 +5,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -23,11 +24,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    
     Route::apiResource('blogs', BlogController::class)->except('index');
+
     Route::get('getBlogs/{id}', function($id){
         $user = User::find($id);
         return response()->json(['blogs' => $user->blogs ] , 200) ;
     });
+
+    Route::post("/like/{blogId}/{userId}",[LikeController::class,'like']);
+    Route::post("/unlike/{blogId}/{userId}",[LikeController::class,'unlike']);
+
 });
 
 Route::get('getBlog/{id}', function($id){

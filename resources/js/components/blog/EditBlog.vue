@@ -44,8 +44,7 @@
   const editBlog = () => {
     isLoading.value = true;
   
-    axios
-      .put(`http://127.0.0.1:8000/api/blogs/${router.currentRoute.value.params.id}`, {
+    axios.put(`http://127.0.0.1:8000/api/blogs/${router.currentRoute.value.params.id}`, {
         title: title.value,
         body: body.value,
       }, {

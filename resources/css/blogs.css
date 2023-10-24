@@ -77,3 +77,38 @@
     top: 10px;
     right: 30px;
 }
+
+.reactions{
+    border-top: 1px solid white;
+    display: flex;
+    justify-content: center;
+    height: 30px;
+    padding-top: 5px;
+}
+
+.reactions-icon{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+     
+}
+.reactions form{
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+.reactions form button {
+    background-color: transparent;
+    border: none;
+    margin: 0px;
+}
+
+.likescount{
+    color: #FA4853;
+    font-size: 20px;
+    height: 30px;
+    width: 20px;
+    margin-left: 2px;
+}

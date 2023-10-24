@@ -14,11 +14,23 @@ class BlogController extends Controller
      */
     public function index()
     {
+        request()->query('id') ? $id = request()->query('id') : $id = null ;
         $allblogs = Blog::orderBy("updated_at",'desc')->get();
         $blogs = array();
         foreach($allblogs as $blog){
-            $user = User::find($blog->user_id);
-            array_push($blogs,["data"=>$blog,"user"=>$user]);
+            if ($id) {
+                $user = User::find($blog->user_id);
+                $isLiked = false ;
+                foreach($blog->likes as $like){
+                    if ($like->user_id == $id) {
+                        $isLiked = true ;
+                    }
+                }
+                array_push($blogs,["data"=>$blog,"user"=>$user , "isLiked" => $isLiked , "count" => count($blog->likes)]);
+            } else {
+                $user = User::find($blog->user_id);
+                array_push($blogs,["data"=>$blog,"user"=>$user]);
+            }
         }
         return response()->json([
             "blogs" => $blogs
@@ -119,7 +131,7 @@ class BlogController extends Controller
             if ($blog) {
                 $blog->delete();
                 return response()->json([
-                    "status" => false,
+                    "status" => true,
                     "message" => "Blog deleted Successfuly"
                 ]);
             } 
